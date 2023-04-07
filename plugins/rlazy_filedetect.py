@@ -37,7 +37,7 @@ async def refunc(client, message):
                 markup = InlineKeyboardMarkup(
                     [[InlineKeyboardButton("📁 Document", callback_data="upload_document")]])
             # Lazy-WarninG -> Please Dont chnage anything after this Line 
-            await message.reply_text(f"**Select the output file type**\n**🎞New Name** :- ```{out_filename}```", reply_to_message_id=mg_id, reply_markup=markup)
+            await message.reply_text(f"**Pilih jenis file**\n**🎞Nama Baru** :- ```{out_filename}```", reply_to_message_id=mg_id, reply_markup=markup)
 
         except:
             try:
@@ -46,7 +46,7 @@ async def refunc(client, message):
                 out_filename = new_name + "." + out_name
             except:
                 await message.reply_to_message.delete()
-                await message.reply_text("**Error** :  No  Extension in File, Not Supporting", reply_to_message_id=mg_id)
+                await message.reply_text("**Error** :  File Ekstensi Tidak Mendukung", reply_to_message_id=mg_id)
                 return
             await message.reply_to_message.delete()
             if mime == "video":
@@ -59,5 +59,5 @@ async def refunc(client, message):
                 markup = InlineKeyboardMarkup(
                     [[InlineKeyboardButton("📁 Document", callback_data="upload_document")]])
             # Lazy-WarninG -> Please Dont chnage anything after this Line 
-            await message.reply_text(f"**Select the output file type**\n**🎞New Name** :- ```{out_filename}```",
+            await message.reply_text(f"**Select the output file type**\n**🎞Nama Baru** :- ```{out_filename}```",
                                      reply_to_message_id=mg_id, reply_markup=markup)
