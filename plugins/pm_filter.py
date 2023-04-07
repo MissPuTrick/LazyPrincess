@@ -50,7 +50,7 @@ async def rename(bot,update):
 	user_id = update.message.chat.id
 	date = update.message.date
 	await update.message.delete()
-	await update.message.reply_text("»»——— 𝙋𝙡𝙚𝙖𝙨𝙚 𝙚𝙣𝙩𝙚𝙧 𝙣𝙚𝙬 𝙛𝙞𝙡𝙚 𝙣𝙖𝙢𝙚...",	
+	await update.message.reply_text("»»——— Silakan masukkan nama file baru...",	
 	reply_to_message_id=update.message.reply_to_message.id,  
 	reply_markup=ForceReply(True))  
 # Born to make history @LazyDeveloper !
@@ -61,13 +61,13 @@ async def doc(bot, update):
     new_filename = new_name.split(":-")[1]
     file = update.message.reply_to_message
     file_path = f"downloads/{new_filename}"
-    ms = await update.message.edit("\n༻☬ད 𝘽𝙪𝙞𝙡𝙙𝙞𝙣𝙜 𝙇𝙖𝙯𝙮 𝙈𝙚𝙩𝙖𝘿𝙖𝙩𝙖...")
+    ms = await update.message.edit("\n༻☬ད Membangun data meta...")
     c_time = time.time()
     try:
         path = await bot.download_media(
                 message=file,
                 progress=progress_for_pyrogram,
-                progress_args=("**\n  ღ♡ ꜰɪʟᴇ ᴜɴᴅᴇʀ ᴄᴏɴꜱᴛʀᴜᴄᴛɪᴏɴ... ♡♪**", ms, c_time))
+                progress_args=("**\n  ღ♡ Berkas sedang dibangun... ♡♪**", ms, c_time))
     except Exception as e:
         await ms.edit(e)
         return 
@@ -92,10 +92,10 @@ async def doc(bot, update):
          try:
              caption = c_caption.format(filename=new_filename, filesize=humanize.naturalsize(media.file_size), duration=convert(duration))
          except Exception as e:
-             await ms.edit(text=f"Your caption Error unexpected keyword ●> ({e})")
+             await ms.edit(text=f"Kesalahan kata kunci yang tidak terduga ●> ({e})")
              return 
     else:
-        caption = f"**{new_filename}** \n\n⚡️Data costs: `{filesize}`"
+        caption = f"**{new_filename}** \n\n⚡️Ukuran File: `{filesize}`"
     if (media.thumbs or c_thumb):
         if c_thumb:
            ph_path = await bot.download_media(c_thumb) 
@@ -105,7 +105,7 @@ async def doc(bot, update):
         img = Image.open(ph_path)
         img.resize((320, 320))
         img.save(ph_path, "JPEG")
-    await ms.edit("三 𝘗𝘳𝘦𝘱𝘢𝘳𝘪𝘯𝘨 𝘵𝘰 𝘳𝘦𝘤𝘦𝘪𝘷𝘦 𝘓𝘢𝘻𝘺 𝘧𝘪𝘭𝘦...︻デ═一")
+    await ms.edit("三 Bersiap menerima berkas...︻デ═一")
     c_time = time.time() 
     try:
        if type == "document":
@@ -115,7 +115,7 @@ async def doc(bot, update):
                    thumb=ph_path, 
                    caption=caption, 
                    progress=progress_for_pyrogram,
-                   progress_args=( "**⎝⎝✧ ʀᴇᴄɪᴇᴠɪɴɢ ꜰɪʟᴇ ꜰʀᴏᴍ ʟᴀᴢʏ ꜱᴇʀᴠᴇʀ ✧⎠⎠**",  ms, c_time))
+                   progress_args=( "**⎝⎝✧ Menerima file dari server ✧⎠⎠**",  ms, c_time))
        elif type == "video": 
            await bot.send_video(
 	        update.message.chat.id,
@@ -124,7 +124,7 @@ async def doc(bot, update):
 	        thumb=ph_path,
 	        duration=duration,
 	        progress=progress_for_pyrogram,
-	        progress_args=( "**⎝⎝✧ ʀᴇᴄɪᴇᴠɪɴɢ ꜰɪʟᴇ ꜰʀᴏᴍ ʟᴀᴢʏ ꜱᴇʀᴠᴇʀ ✧⎠⎠**",  ms, c_time))
+	        progress_args=( "**⎝⎝✧ Menerima file dari server ✧⎠⎠**",  ms, c_time))
        elif type == "audio": 
            await bot.send_audio(
 	        update.message.chat.id,
@@ -133,7 +133,7 @@ async def doc(bot, update):
 	        thumb=ph_path,
 	        duration=duration,
 	        progress=progress_for_pyrogram,
-	        progress_args=( "**⎝⎝✧ ʀᴇᴄɪᴇᴠɪɴɢ ꜰɪʟᴇ ꜰʀᴏᴍ ʟᴀᴢʏ ꜱᴇʀᴠᴇʀ ✧⎠⎠**",  ms, c_time   )) 
+	        progress_args=( "**⎝⎝✧ Menerima file dari server ✧⎠⎠**",  ms, c_time   )) 
     except Exception as e: 
         await ms.edit(f" Erro {e}") 
         os.remove(file_path)
@@ -151,14 +151,14 @@ async def next_page(bot, query):
 
     ident, req, key, offset = query.data.split("_")
     if int(req) not in [query.from_user.id, 0]:
-        return await query.answer("This Message is not for you dear. Don't worry you can send new one !", show_alert=True)
+        return await query.answer("Pesan ini bukan untukmu. Jangan khawatir Anda dapat mengirim yang baru!", show_alert=True)
     try:
         offset = int(offset)
     except:
         offset = 0
     search = BUTTONS.get(key)
     if not search:
-        await query.answer("You are using one of my old messages, please send the request again.", show_alert=True)
+        await query.answer("Anda menggunakan salah satu pesan lama, silakan kirim permintaan lagi.", show_alert=True)
         return
 
     files, n_offset, total = await get_search_results(search, offset=offset, filter=True)
@@ -186,7 +186,7 @@ async def next_page(bot, query):
                     btn = [
                         [
                             InlineKeyboardButton(
-                                text=f"[{get_size(file.file_size)}] {file.file_name}", callback_data=f'files#{file.file_id}'
+                                text=f"{file.file_name}", callback_data=f'files#{file.file_id}'
                             ),
                         ]
                         for file in files
@@ -195,7 +195,7 @@ async def next_page(bot, query):
                     btn = [
                         [
                             InlineKeyboardButton(
-                                text=f"[{get_size(file.file_size)}] {file.file_name}", callback_data=f'files#{file.file_id}'
+                                text=f"{file.file_name}", callback_data=f'files#{file.file_id}'
                             ),
                         ]
                         for file in files
@@ -204,7 +204,7 @@ async def next_page(bot, query):
                     btn = [
                         [
                             InlineKeyboardButton(
-                                text=f"[{get_size(file.file_size)}] {file.file_name}", 
+                                text=f"{file.file_name}", 
                                 url=await get_shortlink(f"https://telegram.me/{temp.U_NAME}?start=files_{file.file_id}")
                             ),
                         ]
@@ -214,7 +214,7 @@ async def next_page(bot, query):
                 btn = [
                     [
                         InlineKeyboardButton(
-                            text=f"[{get_size(file.file_size)}] {file.file_name}", callback_data=f'files#{file.file_id}'
+                            text=f"{file.file_name}", callback_data=f'files#{file.file_id}'
                         ),
                     ]
                     for file in files
@@ -265,7 +265,7 @@ async def next_page(bot, query):
                 ]
     btn.insert(0,
         [ 
-	    InlineKeyboardButton(text="⚡ʜᴏᴡ ᴛᴏ ᴅᴏᴡɴʟᴏᴀᴅ⚡", url='https://telegram.me/LazyDeveloper')
+	    InlineKeyboardButton(text="⚡Cara Download⚡", url='https://t.me/TelMovIDhelp/42')
         ] 
     )
 
@@ -277,20 +277,20 @@ async def next_page(bot, query):
         off_set = offset - 10
     if n_offset == 0:
         btn.append(
-            [InlineKeyboardButton("⏪ BACK", callback_data=f"next_{req}_{key}_{off_set}"),
-             InlineKeyboardButton(f"📃 Pages {math.ceil(int(offset) / 10) + 1} / {math.ceil(total / 10)}",
+            [InlineKeyboardButton("⏪ KEMBALI", callback_data=f"next_{req}_{key}_{off_set}"),
+             InlineKeyboardButton(f"📃 Halaman {math.ceil(int(offset) / 10) + 1} / {math.ceil(total / 10)}",
                                   callback_data="pages")]
         )
     elif off_set is None:
         btn.append(
             [InlineKeyboardButton(f"🗓 {math.ceil(int(offset) / 10) + 1} / {math.ceil(total / 10)}", callback_data="pages"),
-             InlineKeyboardButton("NEXT ⏩", callback_data=f"next_{req}_{key}_{n_offset}")])
+             InlineKeyboardButton("BERIKUTNYA ⏩", callback_data=f"next_{req}_{key}_{n_offset}")])
     else:
         btn.append(
             [
-                InlineKeyboardButton("⏪ BACK", callback_data=f"next_{req}_{key}_{off_set}"),
+                InlineKeyboardButton("⏪ KEMBALI", callback_data=f"next_{req}_{key}_{off_set}"),
                 InlineKeyboardButton(f"🗓 {math.ceil(int(offset) / 10) + 1} / {math.ceil(total / 10)}", callback_data="pages"),
-                InlineKeyboardButton("NEXT ⏩", callback_data=f"next_{req}_{key}_{n_offset}")
+                InlineKeyboardButton("BERIKUTNYA ⏩", callback_data=f"next_{req}_{key}_{n_offset}")
             ],
         )
     try:
@@ -306,14 +306,14 @@ async def next_page(bot, query):
 async def advantage_spoll_choker(bot, query):
     _, user, movie_ = query.data.split('#')
     if int(user) != 0 and query.from_user.id != int(user):
-        return await query.answer("This Message is not for you dear. Don't worry you can send new one !", show_alert=True)
+        return await query.answer("Pesan ini bukan untukmu. Jangan khawatir Anda dapat mengirim yang baru!", show_alert=True)
     if movie_ == "close_spellcheck":
         return await query.message.delete()
     movies = SPELL_CHECK.get(query.message.reply_to_message.id)
     if not movies:
-        return await query.answer("You are clicking on an old button which is expired.", show_alert=True)
+        return await query.answer("Anda mengklik tombol lama yang kedaluwarsa.", show_alert=True)
     movie = movies[(int(movie_))]
-    await query.answer('Checking for Movie in database...')
+    await query.answer('Memeriksa Film dalam database...')
     k = await manual_filters(bot, query.message, text=movie)
     if k == False:
         files, offset, total_results = await get_search_results(movie, offset=0, filter=True)
@@ -321,7 +321,7 @@ async def advantage_spoll_choker(bot, query):
             k = (movie, files, offset, total_results)
             await auto_filter(bot, query, k)
         else:
-            k = await query.message.edit('😒 currently unavailable ! we are really sorry for inconvenience !\n Have patience ! our great admins will upload it as soon as possible !')
+            k = await query.message.edit('😒 sedang tidak tersedia ! kami mohon maaf atas ketidaknyamanannya!\n Bersabarlah! admin akan mengunggahnya sesegera mungkin!')
             await asyncio.sleep(10)
             await k.delete()
 
@@ -343,27 +343,27 @@ async def cb_handler(client: Client, query: CallbackQuery):
                     chat = await client.get_chat(grpid)
                     title = chat.title
                 except:
-                    await query.message.edit_text("Make sure I'm present in your group!!", quote=True)
-                    return await query.answer('♥️ Love @LazyDeveloper ♥️')
+                    await query.message.edit_text("Pastikan saya anggota di grup anda!!", quote=True)
+                    return await query.answer('♥️ TelMovID ♥️')
             else:
                 await query.message.edit_text(
-                    "I'm not connected to any groups!\nCheck /connections or connect to any groups",
+                    "Saya tidak terhubung dengan grup mana pun!\nGunakan /connections untuk terhubung ke grup mana pun",
                     quote=True
                 )
-                return await query.answer('♥️ Thank You LazyDeveloper ♥️')
+                return await query.answer('♥️ TelMovID ♥️')
 
         elif chat_type in [enums.ChatType.GROUP, enums.ChatType.SUPERGROUP]:
             grp_id = query.message.chat.id
             title = query.message.chat.title
 
         else:
-            return await query.answer('♥️ Thank You LazyDeveloper ♥️')
+            return await query.answer('♥️ TelMovID ♥️')
 
         st = await client.get_chat_member(grp_id, userid)
         if (st.status == enums.ChatMemberStatus.OWNER) or (str(userid) in ADMINS):
             await del_all(query.message, grp_id, title)
         else:
-            await query.answer("You need to be Group Owner or an Auth User to do that!", show_alert=True)
+            await query.answer("Anda harus menjadi Pemilik Grup atau Pengguna Autentikasi untuk melakukan ini!", show_alert=True)
     elif query.data == "delallcancel":
         userid = query.from_user.id
         chat_type = query.message.chat.type
@@ -382,7 +382,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
                 except:
                     pass
             else:
-                await query.answer("That's not for you sona!", show_alert=True)
+                await query.answer("Ini bukan untukmu!", show_alert=True)
     elif "groupcb" in query.data:
         await query.answer()
 
@@ -402,16 +402,16 @@ async def cb_handler(client: Client, query: CallbackQuery):
 
         keyboard = InlineKeyboardMarkup([
             [InlineKeyboardButton(f"{stat}", callback_data=f"{cb}:{group_id}"),
-             InlineKeyboardButton("DELETE", callback_data=f"deletecb:{group_id}")],
-            [InlineKeyboardButton("BACK", callback_data="backcb")]
+             InlineKeyboardButton("MENGHAPUS", callback_data=f"deletecb:{group_id}")],
+            [InlineKeyboardButton("KEMBALI", callback_data="backcb")]
         ])
 
         await query.message.edit_text(
-            f"Group Name : **{title}**\nGroup ID : `{group_id}`",
+            f"Nama Grup : **{title}**\nID Grup : `{group_id}`",
             reply_markup=keyboard,
             parse_mode=enums.ParseMode.MARKDOWN
         )
-        return await query.answer('♥️ Thank You LazyDeveloper ♥️')
+        return await query.answer('♥️ TelMovID ♥️')
     elif "connectcb" in query.data:
         await query.answer()
 
@@ -427,12 +427,12 @@ async def cb_handler(client: Client, query: CallbackQuery):
 
         if mkact:
             await query.message.edit_text(
-                f"Connected to **{title}**",
+                f"Terhubung dengan **{title}**",
                 parse_mode=enums.ParseMode.MARKDOWN
             )
         else:
-            await query.message.edit_text('Some error occurred!!', parse_mode=enums.ParseMode.MARKDOWN)
-        return await query.answer('♥️ Thank You LazyDeveloper ♥️')
+            await query.message.edit_text('Beberapa kesalahan terjadi!!', parse_mode=enums.ParseMode.MARKDOWN)
+        return await query.answer('♥️ TelMovID ♥️')
     elif "disconnect" in query.data:
         await query.answer()
 
@@ -447,15 +447,15 @@ async def cb_handler(client: Client, query: CallbackQuery):
 
         if mkinact:
             await query.message.edit_text(
-                f"Disconnected from **{title}**",
+                f"Terputus dari **{title}**",
                 parse_mode=enums.ParseMode.MARKDOWN
             )
         else:
             await query.message.edit_text(
-                f"Some error occurred!!",
+                f"Beberapa kesalahan terjadi!!",
                 parse_mode=enums.ParseMode.MARKDOWN
             )
-        return await query.answer('♥️ Thank You LazyDeveloper ♥️')
+        return await query.answer('♥️ TelMovID ♥️')
     elif "deletecb" in query.data:
         await query.answer()
 
@@ -466,14 +466,14 @@ async def cb_handler(client: Client, query: CallbackQuery):
 
         if delcon:
             await query.message.edit_text(
-                "Successfully deleted connection"
+                "Koneksi berhasil dihapus"
             )
         else:
             await query.message.edit_text(
-                f"Some error occurred!!",
+                f"Beberapa kesalahan terjadi!!",
                 parse_mode=enums.ParseMode.MARKDOWN
             )
-        return await query.answer('♥️ Thank You LazyDeveloper ♥️')
+        return await query.answer('♥️ TelMovID ♥️')
     elif query.data == "backcb":
         await query.answer()
 
@@ -482,9 +482,9 @@ async def cb_handler(client: Client, query: CallbackQuery):
         groupids = await all_connections(str(userid))
         if groupids is None:
             await query.message.edit_text(
-                "There are no active connections!! Connect to some groups first.",
+                "Tidak ada koneksi aktif!! Hubungkan ke beberapa grup terlebih dahulu.",
             )
-            return await query.answer('♥️ Thank You LazyDeveloper ♥️')
+            return await query.answer('♥️ TelMovID ♥️')
         buttons = []
         for groupid in groupids:
             try:
@@ -503,7 +503,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
                 pass
         if buttons:
             await query.message.edit_text(
-                "Your connected group details ;\n\n",
+                "Detail grup terhubung anda ;\n\n",
                 reply_markup=InlineKeyboardMarkup(buttons)
             )
     elif "alertmessage" in query.data:
@@ -520,7 +520,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
         ident, file_id = query.data.split("#")
         files_ = await get_file_details(file_id)
         if not files_:
-            return await query.answer('No such file exist.')
+            return await query.answer('Tidak ada file seperti itu.')
         files = files_[0]
         title = files.file_name
         size = get_size(files.file_size)
@@ -551,21 +551,21 @@ async def cb_handler(client: Client, query: CallbackQuery):
                     caption=f_caption,
                     protect_content=True if ident == "filep" else False 
                 )
-                await query.answer('Check PM, I have sent files in pm', show_alert=True)
+                await query.answer('Cek PM, saya sudah kirim file di pm bot.', show_alert=True)
         except UserIsBlocked:
-            await query.answer('Unblock the bot mahn !', show_alert=True)
+            await query.answer('Buka blokir bot mahn!', show_alert=True)
         except PeerIdInvalid:
             await query.answer(url=f"https://t.me/{temp.U_NAME}?start={ident}_{file_id}")
         except Exception as e:
             await query.answer(url=f"https://t.me/{temp.U_NAME}?start={ident}_{file_id}")
     elif query.data.startswith("checksub"):
         if AUTH_CHANNEL and not await is_subscribed(client, query):
-            await query.answer("Mere saamne jyada smart nhi banne ka sona 😒", show_alert=True)
+            await query.answer("Kanu belum subcribe 😒", show_alert=True)
             return
         ident, file_id = query.data.split("#")
         files_ = await get_file_details(file_id)
         if not files_:
-            return await query.answer('No such file exist.')
+            return await query.answer('Tidak ada file seperti itu.')
         files = files_[0]
         title = files.file_name
         size = get_size(files.file_size)
@@ -591,23 +591,23 @@ async def cb_handler(client: Client, query: CallbackQuery):
         await query.answer()
     elif query.data == "start":
         buttons = [[
-            InlineKeyboardButton('➕↖️ Add Me To Your Groups ↗️➕', url=f'http://t.me/{temp.U_NAME}?startgroup=true')
-        ], [
-            InlineKeyboardButton('🧞‍♀️ Search 🧐', switch_inline_query_current_chat=''),
-            InlineKeyboardButton('🔔 Updates 🤖', url='https://t.me/LazyDeveloper')
-        ], [
-            InlineKeyboardButton('🙆🏻 Help 🦾', callback_data='help'),
-            InlineKeyboardButton('♥️ About ♥️', callback_data='about')
-        ],[
-            InlineKeyboardButton('Watch Tutorial', url='https://youtube.com/LazyDeveloper')
-        ]]
+            InlineKeyboardButton('➕ Add Me To Your Groups ➕', url=f'http://t.me/{temp.U_NAME}?startgroup=true')
+            ],[
+            InlineKeyboardButton('🔍 Cari Film dan Series 🔎', switch_inline_query_current_chat=''),
+            InlineKeyboardButton('🔔 Pembaruan 🔔', url='https://t.me/TelMovID21')
+            ],[
+            InlineKeyboardButton('ℹ️ Bantuan ℹ️', callback_data='help'),
+            InlineKeyboardButton('♥️ Tentang ♥️', callback_data='about')
+            ],[
+            InlineKeyboardButton('Lihat Tutorial', url='https://t.me/TelMovIDhelp/42')
+            ]]
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text(
             text=script.START_TXT.format(query.from_user.mention, temp.U_NAME, temp.B_NAME),
             reply_markup=reply_markup,
             parse_mode=enums.ParseMode.HTML
         )
-        await query.answer('♥️ Thank You LazyDeveloper ♥️')
+        await query.answer('♥️ TelMovID ♥️')
     elif query.data == "help":
         buttons = [[
             InlineKeyboardButton('Manual Filter', callback_data='manuelfilter'),
@@ -616,7 +616,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
             InlineKeyboardButton('Connection', callback_data='coct'),
             InlineKeyboardButton('Extra Mods', callback_data='extra')
         ], [
-            InlineKeyboardButton('🏠 Home', callback_data='start'),
+            InlineKeyboardButton('🏠 Beranda', callback_data='start'),
             InlineKeyboardButton('🦠 Status', callback_data='stats')
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
@@ -627,11 +627,11 @@ async def cb_handler(client: Client, query: CallbackQuery):
         )
     elif query.data == "about":
         buttons = [[
-            InlineKeyboardButton('🔔 Updates 🤖', url='https://t.me/LazyDeveloper'),
+            InlineKeyboardButton('🔔 Pembaruan', url='https://t.me/TelMovID21'),
             InlineKeyboardButton('♥️ Source', callback_data='source')
         ], [
-            InlineKeyboardButton('🏠 Home', callback_data='start'),
-            InlineKeyboardButton('🔐 Close', callback_data='close_data')
+            InlineKeyboardButton('🏠 Beranda', callback_data='start'),
+            InlineKeyboardButton('🔐 Tutup', callback_data='close_data')
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text(
@@ -641,7 +641,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
         )
     elif query.data == "source":
         buttons = [[
-            InlineKeyboardButton('👩‍🦯 Back', callback_data='about')
+            InlineKeyboardButton('👩‍🦯 Kembali', callback_data='about')
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text(
@@ -651,7 +651,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
         )
     elif query.data == "manuelfilter":
         buttons = [[
-            InlineKeyboardButton('🚪 Back', callback_data='help'),
+            InlineKeyboardButton('🚪 Kembali', callback_data='help'),
             InlineKeyboardButton('⏹️ Buttons', callback_data='button')
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
@@ -662,7 +662,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
         )
     elif query.data == "button":
         buttons = [[
-            InlineKeyboardButton('🚪 Back', callback_data='manuelfilter')
+            InlineKeyboardButton('🚪 Kembali', callback_data='manuelfilter')
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text(
@@ -672,7 +672,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
         )
     elif query.data == "autofilter":
         buttons = [[
-            InlineKeyboardButton('🚪 Back', callback_data='help')
+            InlineKeyboardButton('🚪 Kembali', callback_data='help')
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text(
@@ -686,138 +686,140 @@ async def cb_handler(client: Client, query: CallbackQuery):
         # Send message to user
         try:
             btn = [[
-                InlineKeyboardButton(text=f"🔍 Search Here 🔎", url=f"https://telegram.me/{MOVIE_GROUP_USERNAME}")
+                InlineKeyboardButton(text=f"🔍 Cari Film dan Series 🔎", url=f"https://telegram.me/{MOVIE_GROUP_USERNAME}")
             ],[
-                InlineKeyboardButton(text=f"🐞 REPORT ISSUE 🐞", url=f"https://telegram.me/LazyDeveloperSupport")
+                InlineKeyboardButton(text=f"🐞 MASALAH LAPORAN 🐞", url=f"https://t.me/+tYoMgLhGml1lNzQ1")
             ],[
-                InlineKeyboardButton(text=f"⚡️ Learn Bot Making 🦋", url=f"https://youtube.com/@LazyDeveloperr")
+                InlineKeyboardButton(text=f"⚡️ Website 🦋", url=f"https://linktr.ee/TelMovID")
 
             ]]
             btn_lzdv = [
                 [
-                InlineKeyboardButton(text=f"🗑 Delete Log ❌", callback_data = "close_data")
+                InlineKeyboardButton(text=f"🗑 Hapus Log ❌", callback_data = "close_data")
                 ]]
             reply_markup_lzdv = InlineKeyboardMarkup(btn_lzdv)
             reply_markup = InlineKeyboardMarkup(btn)
-            await client.send_message(int(user_id), f"😒 oops! sona, Your requested content named `{movie}` is not available right now, we are really trying our best to serve you this cotent,can you please provide us some more details related to your query {movie}, \nSend details to Admin : <a href='https://telegram.me/{ADMIN_USRNM}'>**Send here...**</a>\n\n❤ Thank You for the contribution", reply_markup=reply_markup)
-            await query.edit_message_text(text=f"- __**User notified successfully sweetie...✅**__\n\n⏳**Status** : Not Available 😒.\n🪪**UserID** : `{user_id}`\n🎞**Content** : `{movie}`\n\n\n🦋",reply_markup=reply_markup_lzdv)
+            await client.send_message(int(user_id), f"😒 Maaf! Film yang anda minta `{movie}` tidak tersedia saat ini, kami benar-benar berusaha sebaik mungkin untuk mencarikan untuk anda,bisakah anda memberi kami beberapa detail lebih lanjut terkait dengan permintaan anda {movie}, \nKirim detail ke Admin : <a href='https://telegram.me/{ADMIN_USRNM}'>**Kirim ke sini...**</a>\n\n❤ Terima kasih atas kontribusinya", reply_markup=reply_markup)
+            await query.edit_message_text(text=f"- __**Pengguna berhasil diberi tahu...✅**__\n\n⏳**Status** : Tidak Tersedia 😒.\n🪪**UserID** : `{user_id}`\n🎞**Judul** : `{movie}`\n\n\n🦋",reply_markup=reply_markup_lzdv)
         # Delete callback query message
             await query.answer()
             await query.delete()
         except Exception as e:
             print(e)  # print the error message
-            await query.answer("something went wrong", show_alert=True)
+            await query.answer("ada yang salah", show_alert=True)
             return
         
     elif data.startswith("notify_user_alrupl"):
         _, user_id, movie = data.split(":")
         # Send message to user
         try:
-            btn = [[
-                InlineKeyboardButton(text=f"🔍 Search Here 🔎", url=f"https://telegram.me/{MOVIE_GROUP_USERNAME}")
+             btn = [[
+                InlineKeyboardButton(text=f"🔍 Cari Film dan Series 🔎", url=f"https://telegram.me/{MOVIE_GROUP_USERNAME}")
             ],[
-                InlineKeyboardButton(text=f"🐞 REPORT ISSUE 🐞", url=f"https://telegram.me/LazyDeveloperSupport")
+                InlineKeyboardButton(text=f"🐞 MASALAH LAPORAN 🐞", url=f"https://t.me/+tYoMgLhGml1lNzQ1")
             ],[
-                InlineKeyboardButton(text=f"⚡️ Learn Bot Making 🦋", url=f"https://youtube.com/@LazyDeveloperr")
+                InlineKeyboardButton(text=f"⚡️ Website 🦋", url=f"https://linktr.ee/TelMovID")
+
             ]]
             btn_lzdv = [
                 [
-                InlineKeyboardButton(text=f"🗑 Delete Log ❌", callback_data = "close_data")
+                InlineKeyboardButton(text=f"🗑 Hapus Log ❌", callback_data = "close_data")
                 ]]
             reply_markup_lzdv = InlineKeyboardMarkup(btn_lzdv)            
             reply_markup = InlineKeyboardMarkup(btn)
-            await client.send_message(int(user_id), f"🛋 Hey sona, Your requested content named `{movie}` is already available in our database! You can easily get this movie by searching it's correct name in our official group...\nSend details to Admin : \n\n❤ Thank You for the contribution", reply_markup=reply_markup)
-            await query.edit_message_text(text=f"- __**User notified successfully sweetie...✅**__\n\n⏳**Status** : Already Uploaded ⚡.\n🪪**UserID** : `{user_id}`\n🎞**Content** : `{movie}`\n\n\n🦋",reply_markup=reply_markup_lzdv)
+            await client.send_message(int(user_id), f"🛋 Hey, Film yang anda minta `{movie}` sudah tersedia di database kami! Anda dapat dengan mudah mendapatkan film ini dengan mencari nama aslinya di grup resmi kami...\nKirim detail ke Admin : \n\n❤ Terima kasih atas kontribusinya", reply_markup=reply_markup)
+            await query.edit_message_text(text=f"- __**Pengguna berhasil diberi tahu...✅**__\n\n⏳**Status** : Sudah Diupload ⚡.\n🪪**UserID** : `{user_id}`\n🎞**Judul** : `{movie}`\n\n\n🦋",reply_markup=reply_markup_lzdv)
         # Delete callback query message
             await query.answer()
             await query.delete()
         except:
-            await query.answer("something went wrong", show_alert = True)
+            await query.answer("ada yang salah", show_alert = True)
             return
         
     elif data.startswith("notify_userupl"):
         _, user_id, movie = data.split(":")
         # Send message to user
         try:
-            btn = [[
-                InlineKeyboardButton(text=f"🔍 Search Here 🔎", url=f"https://telegram.me/{MOVIE_GROUP_USERNAME}")
+             btn = [[
+                InlineKeyboardButton(text=f"🔍 Cari Film dan Series 🔎", url=f"https://telegram.me/{MOVIE_GROUP_USERNAME}")
             ],[
-                InlineKeyboardButton(text=f"🐞 REPORT ISSUE 🐞", url=f"https://telegram.me/LazyDeveloperSupport")
+                InlineKeyboardButton(text=f"🐞 MASALAH LAPORAN 🐞", url=f"https://t.me/+tYoMgLhGml1lNzQ1")
             ],[
-                InlineKeyboardButton(text=f"⚡️ Learn Bot Making 🦋", url=f"https://youtube.com/@LazyDeveloperr")
+                InlineKeyboardButton(text=f"⚡️ Website 🦋", url=f"https://linktr.ee/TelMovID")
 
             ]]
             btn_lzdv = [
                 [
-                InlineKeyboardButton(text=f"🗑 Delete Log ❌", callback_data = "close_data")
+                InlineKeyboardButton(text=f"🗑 Hapus Log ❌", callback_data = "close_data")
                 ]]
             reply_markup_lzdv = InlineKeyboardMarkup(btn_lzdv) 
             reply_markup = InlineKeyboardMarkup(btn)
-            await client.send_message(int(user_id), f"✅ Hey sona, Your requested content named `{movie}` is now available in our database! You can easily get this movie by searching it's correct name in our official group...\n\n❤ Thank You for the contribution", reply_markup=reply_markup)
-            await query.edit_message_text(text=f"- __**User notified successfully sweetie...✅**__\n\n⏳**Status** : Upload done ✅.\n🪪**UserID** : `{user_id}`\n🎞**Content** : `{movie}`\n\n\n🦋", reply_markup=reply_markup_lzdv)
+            await client.send_message(int(user_id), f"✅ Hey, Film yang anda minta `{movie}` sekarang tersedia di database kami! Anda dapat dengan mudah mendapatkan film ini dengan mencari nama aslinya di grup resmi kami...\n\n❤ Terima kasih atas kontribusinya", reply_markup=reply_markup)
+            await query.edit_message_text(text=f"- __**Pengguna berhasil diberi tahu...✅**__\n\n⏳**Status** : Pengunggahan Selesai ✅.\n🪪**UserID** : `{user_id}`\n🎞**Judul** : `{movie}`\n\n\n🦋", reply_markup=reply_markup_lzdv)
         # Delete callback query message
             await query.answer()
             await query.delete()
         except:
-            await query.answer("something went wrong", show_alert = True)
+            await query.answer("ada yang salah", show_alert = True)
             return
         
     elif data.startswith("notify_user_req_rejected"):
         _, user_id, movie = data.split(":")
         # Send message to user
         try:
-            btn = [[
-                InlineKeyboardButton(text=f"🔍 Search Here 🔎", url=f"https://telegram.me/{MOVIE_GROUP_USERNAME}")
+             btn = [[
+                InlineKeyboardButton(text=f"🔍 Cari Film dan Series 🔎", url=f"https://telegram.me/{MOVIE_GROUP_USERNAME}")
             ],[
-                InlineKeyboardButton(text=f"🐞 REPORT ISSUE 🐞", url=f"https://telegram.me/LazyDeveloperSupport")
+                InlineKeyboardButton(text=f"🐞 MASALAH LAPORAN 🐞", url=f"https://t.me/+tYoMgLhGml1lNzQ1")
             ],[
-                InlineKeyboardButton(text=f"⚡️ Learn Bot Making 🦋", url=f"https://youtube.com/@LazyDeveloperr")
+                InlineKeyboardButton(text=f"⚡️ Website 🦋", url=f"https://linktr.ee/TelMovID")
+
             ]]
             btn_lzdv = [
                 [
-                InlineKeyboardButton(text=f"🗑 Delete Log ❌", callback_data = "close_data")
+                InlineKeyboardButton(text=f"🗑 Hapus Log ❌", callback_data = "close_data")
                 ]]
             reply_markup_lzdv = InlineKeyboardMarkup(btn_lzdv) 
             reply_markup = InlineKeyboardMarkup(btn)
-            await client.send_message(int(user_id), f"🙇‍♀️ Sorry Darling! Your requested content named `{movie}` is rejected by our **ADMiN**, we are really very sorry for the inconvenience, we can't process your request at the moment...\n\n❤️‍🩹Keep your search environment friendly, sweetheart!", reply_markup=reply_markup)
-            await query.edit_message_text(text=f"- __**User notified successfully sweetie...✅**__\n\n⏳**Status** : Request Rejected ❌.\n🪪**UserID** : `{user_id}`\n🎞**Content** : `{movie}`\n\n\n🦋",reply_markup=reply_markup_lzdv)
+            await client.send_message(int(user_id), f"🙇‍♀️ Maaf! Film yang anda minta `{movie}` ditolak oleh kami **ADMiN**, kami sangat menyesal atas ketidaknyamanan ini, kami tidak dapat memproses permintaan Anda saat ini...\n\n❤️‍ Terima kasih atas kontribusinya", reply_markup=reply_markup)
+            await query.edit_message_text(text=f"- __**Pengguna berhasil diberi tahu...✅**__\n\n⏳**Status** : Permintaan Ditolak ❌.\n🪪**UserID** : `{user_id}`\n🎞**Judul** : `{movie}`\n\n\n🦋",reply_markup=reply_markup_lzdv)
         # Delete callback query message
             await query.answer()
             await query.delete()
         except:
-            await query.answer("something went wrong", show_alert = True)
+            await query.answer("ada yang salah", show_alert = True)
             return
         
     elif data.startswith("notify_user_spelling_error"):
         _, user_id, movie = data.split(":")
         # Send message to user
         try:
-            btn = [[
-                InlineKeyboardButton(text=f"🔍 Search Here 🔎", url=f"https://telegram.me/{MOVIE_GROUP_USERNAME}")
+             btn = [[
+                InlineKeyboardButton(text=f"🔍 Cari Film dan Series 🔎", url=f"https://telegram.me/{MOVIE_GROUP_USERNAME}")
             ],[
-                InlineKeyboardButton(text=f"🐞 REPORT ISSUE 🐞", url=f"https://telegram.me/LazyDeveloperSupport")
+                InlineKeyboardButton(text=f"🐞 MASALAH LAPORAN 🐞", url=f"https://t.me/+tYoMgLhGml1lNzQ1")
             ],[
-                InlineKeyboardButton(text=f"⚡️ Learn Bot Making 🦋", url=f"https://youtube.com/@LazyDeveloperr")
+                InlineKeyboardButton(text=f"⚡️ Website 🦋", url=f"https://linktr.ee/TelMovID")
 
             ]]
             btn_lzdv = [
                 [
-                InlineKeyboardButton(text=f"🗑 Delete Log ❌", callback_data = "close_data")
+                InlineKeyboardButton(text=f"🗑 Hapus Log ❌", callback_data = "close_data")
                 ]]
             reply_markup_lzdv = InlineKeyboardMarkup(btn_lzdv) 
             reply_markup = InlineKeyboardMarkup(btn)
-            await client.send_message(int(user_id), f"🌍 Your spelling matters.\nThe requested content `{movie}` is available in our database, You were unable to get it because of your spelling mistake.🧐 Please make sure you've spelled correctly while searching content in group...\n\n❤Thank u for supporting us.", reply_markup=reply_markup)
-            await query.edit_message_text(text=f"- __**User notified successfully sweetie...✅**__\n\n⏳**Status** : Spelling error 🖊.\n🪪**UserID** : `{user_id}`\n🎞**Content** : `{movie}`\n\n\n🦋",reply_markup=reply_markup_lzdv)
+            await client.send_message(int(user_id), f"🌍 Ejaan Anda penting.\nFilm yang anda minta `{movie}` tersedia di database kami, anda tidak bisa mendapatkannya karena kesalahan ejaan anda.🧐 Harap pastikan Anda telah mengeja dengan benar saat mencari film dalam grup...\n\n❤ Terima kasih atas kontribusinya.", reply_markup=reply_markup)
+            await query.edit_message_text(text=f"- __**Pengguna berhasil diberi tahu...✅**__\n\n⏳**Status** : Kesalahan Ejaan 🖊.\n🪪**UserID** : `{user_id}`\n🎞**Judul** : `{movie}`\n\n\n🦋",reply_markup=reply_markup_lzdv)
         # Delete callback query message
             await query.answer()
             await query.delete()
         except:
-            await query.answer("something went wrong", show_alert = True)
+            await query.answer("ada yang salah", show_alert = True)
             return
         
     elif query.data == "coct":
         buttons = [[
-            InlineKeyboardButton('🚪 Back', callback_data='help')
+            InlineKeyboardButton('🚪 Kembali', callback_data='help')
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text(
@@ -827,7 +829,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
         )
     elif query.data == "extra":
         buttons = [[
-            InlineKeyboardButton('🚪 Back', callback_data='help'),
+            InlineKeyboardButton('🚪 Kembali', callback_data='help'),
             InlineKeyboardButton('👑 Admin', callback_data='admin')
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
@@ -838,7 +840,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
         )
     elif query.data == "admin":
         buttons = [[
-            InlineKeyboardButton('🚪 Back', callback_data='extra')
+            InlineKeyboardButton('🚪 Kembali', callback_data='extra')
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text(
@@ -848,7 +850,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
         )
     elif query.data == "stats":
         buttons = [[
-            InlineKeyboardButton('🚪 Back', callback_data='help'),
+            InlineKeyboardButton('🚪 Kembali', callback_data='help'),
             InlineKeyboardButton('♻️', callback_data='rfrsh')
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
@@ -902,7 +904,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
     #     )
     elif query.data == "donatelazydev":
         buttons = [
-            [ InlineKeyboardButton("⨳   Close   ⨳", callback_data="close_data") ]
+            [ InlineKeyboardButton("Tutup", callback_data="close_data") ]
             ]
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text(
@@ -911,9 +913,9 @@ async def cb_handler(client: Client, query: CallbackQuery):
             parse_mode=enums.ParseMode.HTML
         )
     elif query.data == "lazyhome":
-        text = f"""\n⨳ *•.¸♡ L҉ΛＺ𝐲 ＭⓄｄ𝓔 ♡¸.•* ⨳\n\n**Please tell, what should i do with this file.?**\n"""
-        buttons = [[ InlineKeyboardButton("📝✧✧ S𝚝ar𝚝 re𝚗aᗰi𝚗g ✧✧📝", callback_data="rename") ],
-                           [ InlineKeyboardButton("⨳  C L Ф S Ξ  ⨳", callback_data="cancel") ]]
+        text = f"\n**Tolong beritahu, apa yang harus saya lakukan dengan file ini?**\n"
+        buttons = [[ InlineKeyboardButton("📝✧✧ Mulai Ganti Nama ✧✧📝", callback_data="rename") ],
+                           [ InlineKeyboardButton("Tutup", callback_data="cancel") ]]
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text(
                     text=text,
@@ -922,7 +924,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
                 )    
     elif query.data == "requireauth":
         buttons = [
-            [ InlineKeyboardButton("⨳  C L Ф S Ξ  ⨳", callback_data="cancel") ]]
+            [ InlineKeyboardButton("Tutup", callback_data="cancel") ]]
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text(
             text=script.REQ_AUTH_TEXT.format(query.from_user.mention),
@@ -966,10 +968,10 @@ async def cb_handler(client: Client, query: CallbackQuery):
     #         parse_mode=enums.ParseMode.HTML
     #     )
     elif query.data == "exit":
-        await query.answer("Sorry Darling! You can't make any changes...\n\nOnly my Admin can change this setting...", show_alert = True)
+        await query.answer("Maaf! Anda tidak dapat melakukan perubahan apa pun...\n\nHanya Admin saya yang dapat mengubah pengaturan ini...", show_alert = True)
         return
     elif query.data == "invalid_index_process":
-        await query.answer("Hey sweetie, please send me the last media with quote from your group.\nAnd also make sure that i am admin in your beloved group...")
+        await query.answer("Hai, tolong kirimi saya media terakhir dengan kutipan dari grup anda.\nDan pastikan juga bahwa saya adalah admin di grup anda...")
         return
     # elif query.data == "already_uploaded":
     #     if query.from_user.id not in ADMINS:
@@ -992,10 +994,10 @@ async def cb_handler(client: Client, query: CallbackQuery):
         except:
             return
     elif query.data == "rfrsh":
-        await query.answer("Fetching MongoDb DataBase")
+        await query.answer("Mengambil Database MongoDb")
         buttons = [[
-            InlineKeyboardButton('👩‍🦯 Back', callback_data='help'),
-            InlineKeyboardButton('refresh', callback_data='rfrsh')
+            InlineKeyboardButton('👩‍🦯 Kembali', callback_data='help'),
+            InlineKeyboardButton('menyegarkan', callback_data='rfrsh')
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
         total = await Media.count_documents()
@@ -1015,8 +1017,8 @@ async def cb_handler(client: Client, query: CallbackQuery):
         grpid = await active_connection(str(query.from_user.id))
 
         if str(grp_id) != str(grpid):
-            await query.message.edit("Your Active Connection Has Been Changed. Go To /settings.")
-            return await query.answer('♥️ Thank You LazyDeveloper ♥️')
+            await query.message.edit("Koneksi Aktif Anda Telah Diubah. Pergi ke /settings.")
+            return await query.answer('♥️ TelMovID ♥️')
 
         if status == "True":
             await save_group_settings(grpid, set_type, False)
@@ -1036,29 +1038,29 @@ async def cb_handler(client: Client, query: CallbackQuery):
                 ],
                 [
                     InlineKeyboardButton('Bot PM', callback_data=f'setgs#botpm#{settings["botpm"]}#{str(grp_id)}'),
-                    InlineKeyboardButton('✅ Yes' if settings["botpm"] else '❌ No',
+                    InlineKeyboardButton('✅ Ya' if settings["botpm"] else '❌ Tidak',
                                          callback_data=f'setgs#botpm#{settings["botpm"]}#{str(grp_id)}')
                 ],
                 [
                     InlineKeyboardButton('File Secure',
                                          callback_data=f'setgs#file_secure#{settings["file_secure"]}#{str(grp_id)}'),
-                    InlineKeyboardButton('✅ Yes' if settings["file_secure"] else '❌ No',
+                    InlineKeyboardButton('✅ Ya' if settings["file_secure"] else '❌ Tidak',
                                          callback_data=f'setgs#file_secure#{settings["file_secure"]}#{str(grp_id)}')
                 ],
                 [
                     InlineKeyboardButton('IMDB', callback_data=f'setgs#imdb#{settings["imdb"]}#{str(grp_id)}'),
-                    InlineKeyboardButton('✅ Yes' if settings["imdb"] else '❌ No',
+                    InlineKeyboardButton('✅ Ya' if settings["imdb"] else '❌ Tidak',
                                          callback_data=f'setgs#imdb#{settings["imdb"]}#{str(grp_id)}')
                 ],
                 [
                     InlineKeyboardButton('Spell Check',
                                          callback_data=f'setgs#spell_check#{settings["spell_check"]}#{str(grp_id)}'),
-                    InlineKeyboardButton('✅ Yes' if settings["spell_check"] else '❌ No',
+                    InlineKeyboardButton('✅ Ya' if settings["spell_check"] else '❌ Tidak',
                                          callback_data=f'setgs#spell_check#{settings["spell_check"]}#{str(grp_id)}')
                 ],
                 [
                     InlineKeyboardButton('Welcome', callback_data=f'setgs#welcome#{settings["welcome"]}#{str(grp_id)}'),
-                    InlineKeyboardButton('✅ Yes' if settings["welcome"] else '❌ No',
+                    InlineKeyboardButton('✅ Ya' if settings["welcome"] else '❌ Tidak',
                                          callback_data=f'setgs#welcome#{settings["welcome"]}#{str(grp_id)}')
                 ]
             ]
@@ -1072,35 +1074,35 @@ async def cb_handler(client: Client, query: CallbackQuery):
                 ],
                 [
                     InlineKeyboardButton('Bot PM', callback_data=f'setgs#botpm#{settings["botpm"]}#{str(grp_id)}'),
-                    InlineKeyboardButton('✅ Yes' if settings["botpm"] else '❌ No',
+                    InlineKeyboardButton('✅ Ya' if settings["botpm"] else '❌ Tidak',
                                          callback_data=f'setgs#botpm#{settings["botpm"]}#{str(grp_id)}')
                 ],
                 [
                     InlineKeyboardButton('File Secure',
                                          callback_data=f'exit'),
-                    InlineKeyboardButton('✅ Yes' if settings["file_secure"] else '❌ No',
+                    InlineKeyboardButton('✅ Ya' if settings["file_secure"] else '❌ Tidak',
                                          callback_data=f'exit')
                 ],
                 [
                     InlineKeyboardButton('IMDB', callback_data=f'setgs#imdb#{settings["imdb"]}#{str(grp_id)}'),
-                    InlineKeyboardButton('✅ Yes' if settings["imdb"] else '❌ No',
+                    InlineKeyboardButton('✅ Ya' if settings["imdb"] else '❌ Tidak',
                                          callback_data=f'setgs#imdb#{settings["imdb"]}#{str(grp_id)}')
                 ],
                 [
                     InlineKeyboardButton('Spell Check',
                                          callback_data=f'setgs#spell_check#{settings["spell_check"]}#{str(grp_id)}'),
-                    InlineKeyboardButton('✅ Yes' if settings["spell_check"] else '❌ No',
+                    InlineKeyboardButton('✅ Ya' if settings["spell_check"] else '❌ Tidak',
                                          callback_data=f'setgs#spell_check#{settings["spell_check"]}#{str(grp_id)}')
                 ],
                 [
                     InlineKeyboardButton('Welcome', callback_data=f'setgs#welcome#{settings["welcome"]}#{str(grp_id)}'),
-                    InlineKeyboardButton('✅ Yes' if settings["welcome"] else '❌ No',
+                    InlineKeyboardButton('✅ Ya' if settings["welcome"] else '❌ Tidak',
                                          callback_data=f'setgs#welcome#{settings["welcome"]}#{str(grp_id)}')
                 ]
             ]
             reply_markup = InlineKeyboardMarkup(buttons)
             await query.message.edit_reply_markup(reply_markup)
-    await query.answer('♥️ Thank You LazyDeveloper ♥️')
+    await query.answer('♥️ TelMovID ♥️')
 
 async def auto_filter(client, msg, spoll=False):
     if not spoll:
@@ -1115,15 +1117,15 @@ async def auto_filter(client, msg, spoll=False):
             user_id = message.from_user.id
             files, offset, total_results = await get_search_results(search.lower(), offset=0, filter=True)
             if not files:
-                await client.send_message(req_channel,f"-🦋 #REQUESTED_CONTENT 🦋-\n\n📝**Content Name** :`{search}`\n**Requested By**: {message.from_user.first_name}\n **USER ID**:{user_id}\n\n🗃️",
+                await client.send_message(req_channel,f"-🦋 #REQUEST 🦋-\n\n📝**Judul** :`{search}`\n**Diminta oleh**: {message.from_user.first_name}\n **Identitas Pengguna**:{user_id}\n\n🗃️",
                                                                                                        reply_markup=InlineKeyboardMarkup([
-                                                                                                                                        [InlineKeyboardButton(text=f"✅Upload Done", callback_data=f"notify_userupl:{user_id}:{requested_movie}")],
-                                                                                                                                        [InlineKeyboardButton(text=f"⚡Already Upl..", callback_data=f"notify_user_alrupl:{user_id}:{requested_movie}"),InlineKeyboardButton("🖊Spell Error", callback_data=f"notify_user_spelling_error:{user_id}:{requested_movie}")],
-                                                                                                                                        [InlineKeyboardButton(text=f"😒Not Available", callback_data=f"notify_user_not_avail:{user_id}:{requested_movie}"),InlineKeyboardButton("❌Reject Req", callback_data=f"notify_user_req_rejected:{user_id}:{requested_movie}")],
+                                                                                                                                        [InlineKeyboardButton(text=f"✅Unggah Selesai", callback_data=f"notify_userupl:{user_id}:{requested_movie}")],
+                                                                                                                                        [InlineKeyboardButton(text=f"⚡Sudah Diunggah..", callback_data=f"notify_user_alrupl:{user_id}:{requested_movie}"),InlineKeyboardButton("🖊Kesalahan Ejaan", callback_data=f"notify_user_spelling_error:{user_id}:{requested_movie}")],
+                                                                                                                                        [InlineKeyboardButton(text=f"😒Tidak Tersedia", callback_data=f"notify_user_not_avail:{user_id}:{requested_movie}"),InlineKeyboardButton("❌Tolak Req", callback_data=f"notify_user_req_rejected:{user_id}:{requested_movie}")],
                                                                                                                                         ]))
                 
-                l = await message.reply_text(text=f"△ 𝙷𝚎𝚢 𝚜𝚘𝚗𝚊 `{message.from_user.first_name}` 😎,\n\nʏᴏᴜʀ ʀᴇQᴜᴇꜱᴛ ʜᴀꜱ ʙᴇᴇɴ ꜱᴇɴᴛ ᴛᴏ ᴏᴜʀ **ᴀᴅᴍɪɴ'ꜱ ᴅᴀꜱʜʙᴏᴀʀᴅ** !\nᴘʟᴇᴀꜱᴇ ᴋᴇᴇᴘ ꜱᴏᴍᴇ ᴘᴀᴛɪᴇɴᴄᴇ !\nᴛʜᴇʏ ᴡɪʟʟ ᴜᴘʟᴏᴀᴅ ɪᴛ ᴀꜱ ꜱᴏᴏɴ ᴀꜱ ᴘᴏꜱꜱɪʙʟᴇ.\n\n➟ 📝𝘾𝙤𝙣𝙩𝙚𝙣𝙩 𝙣𝙖𝙢𝙚 : `{search}`\n➟ 👮𝙍𝙚𝙦𝙪𝙚𝙨𝙩𝙚𝙙 𝘽𝙮 : `{message.from_user.first_name}`\n\n༺ @{MAIN_CHANNEL_USRNM} ༻\n\n🦋・‥☆𝘼𝘿𝙈𝙞𝙉 𝙨𝙪𝙥𝙥𝙤𝙧𝙩☆‥・🦋\n╰┈➤・☆ @{ADMIN_USRNM}\n╰┈➤・☆ @LazyDeveloperr",
-                                                                                                       reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("━ • │▌║  ᗩᗪᗪ ʍɛ 2 ᑌᖇ Ǥᖇᗝᑌᑭ  ║▌│ • ━", url=f'http://t.me/{temp.U_NAME}?startgroup=true')],[InlineKeyboardButton("✪ Dev Ch- ✪", url=f"https://t.me/{DEV_CHANNEL_USRNM}"), InlineKeyboardButton("✪ ＹＴ ✪", url=f"https://youtube.com/@{LAZY_YT_HANDLE}"), InlineKeyboardButton("✪ Main Ch- ✪", url=f"https://t.me/{MAIN_CHANNEL_USRNM}")],[InlineKeyboardButton("╚»♥️ Thank You ♥️«╝", callback_data="close_data")]]))
+                l = await message.reply_text(text=f"△ Hey `{message.from_user.first_name}` 😎,\n\npermintaan anda telah dikirim ke kami **ᴀᴅᴍɪɴ** !\nHarap bersabar!\nAdmin akan mengunggahnya sesegera mungkin.\n\n➟ 📝Judul : `{search}`\n➟ 👮Diminta oleh : `{message.from_user.first_name}`\n\n༺ @{MAIN_CHANNEL_USRNM} ༻\n\n🦋・‥☆𝘼𝘿𝙈𝙞𝙉 𝙨𝙪𝙥𝙥𝙤𝙧𝙩☆‥・🦋\n╰┈➤・☆ @{ADMIN_USRNM}",
+                                                                                                       reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("━ • │▌║  ᗩᗪᗪ ʍɛ 2 ᑌᖇ Ǥᖇᗝᑌᑭ  ║▌│ • ━", url=f'http://t.me/{temp.U_NAME}?startgroup=true')],[InlineKeyboardButton("✪ Dev Ch- ✪", url=f"https://t.me/{DEV_CHANNEL_USRNM}"), InlineKeyboardButton("✪ ＹＴ ✪", url=f"https://youtube.com/@{LAZY_YT_HANDLE}"), InlineKeyboardButton("✪ Main Ch- ✪", url=f"https://t.me/{MAIN_CHANNEL_USRNM}")],[InlineKeyboardButton("╚»♥️ Terima Kasih ♥️«╝", callback_data="close_data")]]))
                 await asyncio.sleep(20)
                 await l.delete()    
                 if settings["spell_check"]:
@@ -1143,7 +1145,7 @@ async def auto_filter(client, msg, spoll=False):
                     btn = [
                         [
                             InlineKeyboardButton(
-                                text=f"[{get_size(file.file_size)}] {file.file_name}", callback_data=f'files#{file.file_id}'
+                                text=f"{file.file_name}", callback_data=f'files#{file.file_id}'
                             ),
                         ]
                         for file in files
@@ -1152,7 +1154,7 @@ async def auto_filter(client, msg, spoll=False):
                     btn = [
                         [
                             InlineKeyboardButton(
-                                text=f"[{get_size(file.file_size)}] {file.file_name}", callback_data=f'{pre}#{file.file_id}'
+                                text=f"{file.file_name}", callback_data=f'{pre}#{file.file_id}'
                             ),
                         ]
                         for file in files
@@ -1161,7 +1163,7 @@ async def auto_filter(client, msg, spoll=False):
                     btn = [
                         [
                             InlineKeyboardButton(
-                                text=f"[{get_size(file.file_size)}] {file.file_name}", 
+                                text=f"{file.file_name}", 
                                 url=await get_shortlink(f"https://telegram.dog/{temp.U_NAME}?start=files_{file.file_id}")
                             ),
                         ]
@@ -1171,7 +1173,7 @@ async def auto_filter(client, msg, spoll=False):
                 btn = [
                     [
                         InlineKeyboardButton(
-                            text=f"[{get_size(file.file_size)}] {file.file_name}", callback_data=f'{pre}#{file.file_id}'
+                            text=f"{file.file_name}", callback_data=f'{pre}#{file.file_id}'
                         ),
                     ]
                     for file in files
@@ -1223,7 +1225,7 @@ async def auto_filter(client, msg, spoll=False):
 
     btn.insert(0,
         [ 
-	    InlineKeyboardButton(text="⚡ʜᴏᴡ 2 ᴅᴏᴡɴʟᴏᴀᴅ⚡", url='https://telegram.me/LazyDeveloper'),
+	    InlineKeyboardButton(text="⚡Cara Download⚡", url='https://t.me/TelMovIDhelp/42'),
         ] 
     )
     if offset != "":
@@ -1232,7 +1234,7 @@ async def auto_filter(client, msg, spoll=False):
         req = message.from_user.id if message.from_user else 0
         btn.append(
             [InlineKeyboardButton(text=f"🗓 1/{math.ceil(int(total_results) / 10)}", callback_data="pages"),
-             InlineKeyboardButton(text="NEXT ⏩", callback_data=f"next_{req}_{key}_{offset}")]
+             InlineKeyboardButton(text="BERIKUTNYA ⏩", callback_data=f"next_{req}_{key}_{offset}")]
         )
     else:
         btn.append(
@@ -1273,7 +1275,7 @@ async def auto_filter(client, msg, spoll=False):
             **locals()
         )
     else:
-        cap = f"Baby, Here is what i found for your query {search}"
+        cap = f"Inilah yang saya temukan untuk pencarian anda {search}"
     if imdb and imdb.get('poster'):
         try:
             z = await message.reply_photo(photo=imdb.get('poster'), caption=cap[:1024],
@@ -1313,7 +1315,7 @@ async def advantage_spell_chok(msg):
     g_s += await search_gagala(msg.text)
     gs_parsed = []
     if not g_s:
-        k = await msg.reply("I couldn't find any movie in that name.")
+        k = await msg.reply("Saya tidak dapat menemukan film apa pun dengan nama itu.")
         await asyncio.sleep(10)
         await k.delete()
         return
@@ -1342,7 +1344,7 @@ async def advantage_spell_chok(msg):
     movielist += [(re.sub(r'(\-|\(|\)|_)', '', i, flags=re.IGNORECASE)).strip() for i in gs_parsed]
     movielist = list(dict.fromkeys(movielist))  # removing duplicates
     if not movielist:
-        k = await msg.reply("Hey Sona! The requested content is currently unavailable in our database, have some patience 🙂 - our great admin will upload it as soon as possible \n             **or**\nDiscuss issue with admin here 👉  <a href='https://t.me/Discusss_Here'>Discuss Here</a> ♥️ ")
+        k = await msg.reply("Hey! film yang diminta saat ini tidak tersedia di database kami, bersabarlah 🙂 - admin akan mengunggahnya sesegera mungkin \n             **atau**\nDiskusikan masalah dengan admin di sini 👉  <a href='https://t.me/+tYoMgLhGml1lNzQ1'>Diskusikan Disini</a> ♥️ ")
         await asyncio.sleep(10)
         await k.delete()
         return
@@ -1354,7 +1356,7 @@ async def advantage_spell_chok(msg):
         )
     ] for k, movie in enumerate(movielist)]
     btn.append([InlineKeyboardButton(text="Close", callback_data=f'spolling#{user}#close_spellcheck')])
-    await msg.reply("Hey Sona! The requested content is currently unavailable in our database, have some patience 🙂 - our great admin will upload it as soon as possible \n              **or**\nDiscuss issue with admin here 👉 <a href='https://t.me/Discusss_Here'>Discuss Here</a> ♥️ ",
+    await msg.reply("Hey! film yang diminta saat ini tidak tersedia di database kami, bersabarlah 🙂 - admin akan mengunggahnya sesegera mungkin \n              **atau**\nDiskusikan masalah dengan admin di sini 👉 <a href='https://t.me/+tYoMgLhGml1lNzQ1'>Diskusikan Disini</a> ♥️ ",
                     reply_markup=InlineKeyboardMarkup(btn))
 
 
