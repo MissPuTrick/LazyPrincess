@@ -59,5 +59,5 @@ async def refunc(client, message):
                 markup = InlineKeyboardMarkup(
                     [[InlineKeyboardButton("📁 Document", callback_data="upload_document")]])
             # Lazy-WarninG -> Please Dont chnage anything after this Line 
-            await message.reply_text(f"**Select the output file type**\n**🎞Nama Baru** :- ```{out_filename}```",
+            await message.reply_text(f"**Pilih jenis file**\n**🎞Nama Baru** :- ```{out_filename}```",
                                      reply_to_message_id=mg_id, reply_markup=markup)
