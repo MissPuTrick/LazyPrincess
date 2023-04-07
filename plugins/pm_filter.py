@@ -913,7 +913,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
             parse_mode=enums.ParseMode.HTML
         )
     elif query.data == "lazyhome":
-        text = f"\n**Tolong beritahu, apa yang harus saya lakukan dengan file ini?**\n"
+        text = f"""\n**Tolong beritahu, apa yang harus saya lakukan dengan file ini?**\n"""
         buttons = [[ InlineKeyboardButton("📝✧✧ Mulai Ganti Nama ✧✧📝", callback_data="rename") ],
                            [ InlineKeyboardButton("Tutup", callback_data="cancel") ]]
         reply_markup = InlineKeyboardMarkup(buttons)
